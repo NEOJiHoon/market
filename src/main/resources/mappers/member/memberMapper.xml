@@ -3,5 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jihoon.market.mapper.MemberMapper">
+    <insert id="insertMember" parameterType="Member">
+        insert into MEMBER
+            (MEM_ID, MEM_NM, NIC_NM, MEM_PW, MEM_CP, MEM_IMG)
+        values
+            (#{memId}, #{memNm}, #{nicNm}, #{memPw}, #{memCp}, #{memImg})
+
+    </insert>
 
 </mapper>

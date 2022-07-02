@@ -19,4 +19,10 @@ public class MemberController {
         log.info("create member: {}", member);
         return memberMapper.insertMember(member);
     }
+
+    @PostMapping(value = "/member/modify")
+    public int modifyMember(Member member) {
+        log.info("modify member: {}", member);
+        return memberMapper.updateMember(member);
+    }
 }

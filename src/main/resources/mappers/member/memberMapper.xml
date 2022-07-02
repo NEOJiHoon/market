@@ -11,4 +11,14 @@
 
     </insert>
 
+    <update id="updateMember" parameterType="Member">
+        update MEMBER SET
+                          MEM_NM=#{memNm},
+                          NIC_NM=#{nicNm},
+                          MEM_PW=#{memPw},
+                          MEM_CP=#{memCp},
+                          MEM_IMG=#{memImg}
+        WHERE MEM_ID=#{memId}
+    </update>
+
 </mapper>

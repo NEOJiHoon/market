@@ -3,6 +3,8 @@ package com.jihoon.market.mapper;
 import com.jihoon.market.model.Item;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface ItemMapper {
 
@@ -11,5 +13,7 @@ public interface ItemMapper {
     int updateItem(Item item);
 
     int deleteItem(Item item);
+
+    List<Item> selectItemList();
 
 }

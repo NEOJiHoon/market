@@ -4,9 +4,12 @@ import com.jihoon.market.mapper.ItemMapper;
 import com.jihoon.market.model.Item;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -34,6 +37,13 @@ public class ItemController {
         item.setMemId(memId);
         item.setItemNo(itemNo);
         return itemMapper.deleteItem(item);
+    }
+
+    @GetMapping(value="/item")
+    public List<Item> getItemList() {
+        List<Item> itemList = itemMapper.selectItemList();
+        log.info(":: 아이템 목록 :: {}", itemList);
+        return itemList;
     }
 
 }

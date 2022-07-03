@@ -34,4 +34,8 @@
                         DEL_DT = now()
         WHERE MEM_ID=#{memId} AND ITEM_NO = #{itemNo}
     </update>
+
+    <select id="selectItemList" resultType="Item">
+        select * from ITEM
+    </select>
 </mapper>

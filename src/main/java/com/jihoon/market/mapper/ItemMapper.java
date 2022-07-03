@@ -8,4 +8,6 @@ public interface ItemMapper {
 
     int insertItem(Item item);
 
+    int updateItem(Item item);
+
 }

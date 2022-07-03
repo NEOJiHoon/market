@@ -19,4 +19,10 @@ public class ItemController {
         log.info("create item: {}", item);
         return itemMapper.insertItem(item);
     }
+
+    @PostMapping(value="/item/modify")
+    public int modifyItem(Item item) {
+        log.info("modify item: {}", item);
+        return itemMapper.updateItem(item);
+    }
 }

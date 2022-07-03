@@ -12,4 +12,19 @@
             (#{memId}, #{itemNo}, #{title}, #{contents}, #{price}, #{imgOne}, #{imgTwo}, #{imgThree},
              #{createDt}, #{soldOutYn}, #{soldOutDt}, #{delYn}, #{delDt})
     </insert>
+
+    <update id="updateItem" parameterType="Item">
+        update ITEM set
+                        title = #{title},
+                        contents = #{contents},
+                        price = #{price},
+                        IMG_ONE = #{imgOne},
+                        IMG_TWO = #{imgTwo},
+                        IMG_THREE = #{imgThree},
+                        SOLD_OUT_YN = #{soldOutYn},
+                        SOLD_OUT_DT = #{soldOutDt},
+                        DEL_YN = #{delYn},
+                        DEL_DT = #{delDt}
+        WHERE MEM_ID=#{memId} AND ITEM_NO = #{itemNo}
+    </update>
 </mapper>

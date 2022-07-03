@@ -27,4 +27,11 @@
                         DEL_DT = #{delDt}
         WHERE MEM_ID=#{memId} AND ITEM_NO = #{itemNo}
     </update>
+
+    <update id="deleteItem" parameterType="Item">
+        update ITEM set
+                        DEL_YN = 'Y',
+                        DEL_DT = now()
+        WHERE MEM_ID=#{memId} AND ITEM_NO = #{itemNo}
+    </update>
 </mapper>

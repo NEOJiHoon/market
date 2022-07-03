@@ -10,4 +10,6 @@ public interface ItemMapper {
 
     int updateItem(Item item);
 
+    int deleteItem(Item item);
+
 }

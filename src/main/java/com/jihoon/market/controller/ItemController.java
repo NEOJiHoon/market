@@ -5,6 +5,7 @@ import com.jihoon.market.model.Item;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -25,4 +26,14 @@ public class ItemController {
         log.info("modify item: {}", item);
         return itemMapper.updateItem(item);
     }
+
+    @PostMapping(value="/item/delete")
+    public int deleteItem(@RequestParam String memId, @RequestParam Long itemNo) {
+        log.info("::키:: 멤버ID:{}, 아이템번호:{}", memId, itemNo);
+        Item item = new Item();
+        item.setMemId(memId);
+        item.setItemNo(itemNo);
+        return itemMapper.deleteItem(item);
+    }
+
 }

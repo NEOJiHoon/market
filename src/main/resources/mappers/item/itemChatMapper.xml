@@ -9,4 +9,8 @@
         VALUES (#{memId}, #{itemNo}, #{toMemId}, #{chatNo}, #{msg}, NOW())
     </insert>
 
+    <select id="selectItemChatList" resultType="ItemChat">
+        SELECT * FROM ITEM_CHAT
+    </select>
+
 </mapper>

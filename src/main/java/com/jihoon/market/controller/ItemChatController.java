@@ -4,10 +4,9 @@ import com.jihoon.market.mapper.ItemChatMapper;
 import com.jihoon.market.model.ItemChat;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -22,4 +21,12 @@ public class ItemChatController {
         log.info("아이템 채팅 요청정보: {}", itemChat);
         return itemChatMapper.insertItemChat(itemChat);
     }
+
+    @GetMapping
+    public List<ItemChat> getItemChatList() {
+        List<ItemChat> itemChatList = itemChatMapper.selectItemChatList();
+        log.info("아이템 채팅 목록: {}", itemChatList);
+        return itemChatList;
+    }
+
 }

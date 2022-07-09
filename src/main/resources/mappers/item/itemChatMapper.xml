@@ -5,8 +5,8 @@
 <mapper namespace="com.jihoon.market.mapper.ItemChatMapper">
 
     <insert id="insertItemChat" parameterType="ItemChat">
-        INSERT INTO ITEM_CHAT (MEM_ID, ITEM_NO, TO_MEM_ID, CHAT_NO, MSG, CREATE_DT)
-        VALUES (#{memId}, #{itemNo}, #{toMemId}, #{chatNo}, #{msg}, NOW())
+        INSERT INTO ITEM_CHAT (MEM_ID, ITEM_NO, TO_MEM_ID, CHAT_NO, MSG, WRITER_TP, CREATE_DT)
+        VALUES (#{memId}, #{itemNo}, #{toMemId}, #{chatNo}, #{msg}, #{writerTp}, NOW())
     </insert>
 
     <select id="selectItemChatList" resultType="ItemChat">

@@ -15,5 +15,6 @@ public class ItemChat {
     private String toMemId;
     private Long chatNo;
     private String msg;
+    private Integer writerTp;
     private LocalDateTime createDt;
 }

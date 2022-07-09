@@ -56,6 +56,7 @@ CREATE TABLE ITEM_CHAT (
                            TO_MEM_ID VARCHAR(30)     NOT NULL, -- 상대회원ID
                            CHAT_NO   BIGINT UNSIGNED NOT NULL, -- 채팅번호
                            MSG       VARCHAR(200)    NULL,     -- 메세지
+                           WRITER_TP INTEGER(1)      NULL,     -- 작성자구분
                            CREATE_DT DATETIME        NULL      -- 등록일시
 );
 

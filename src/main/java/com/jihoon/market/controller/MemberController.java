@@ -4,10 +4,7 @@ import com.jihoon.market.mapper.MemberMapper;
 import com.jihoon.market.model.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequestMapping("/member")
@@ -18,7 +15,7 @@ public class MemberController {
     MemberMapper memberMapper;
 
     @PostMapping()
-    public int createMember(Member member) {
+    public int createMember(@RequestBody Member member) {
         log.info("create member: {}", member);
         return memberMapper.insertMember(member);
     }

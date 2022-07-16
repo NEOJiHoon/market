@@ -14,8 +14,10 @@ public class LoginController {
     public String login(@RequestBody Member member) {
         String id = member.getMemId();
         String pw = member.getMemPw();
-        if (id == null || pw == null || "".equals(id.trim()) || "".equals(pw.trim())) {
-            return "id/pw 를 정확히 입력하세요.";
+        if (id == null || "".equals(id.trim())) {
+            return "아이디를 정확히 입력하세요.";
+        } else if (pw == null || "".equals(pw.trim())) {
+            return "패스워드를 정확히 입력하세요.";
         }
 
         return "success";

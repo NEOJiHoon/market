@@ -2,6 +2,7 @@ package com.jihoon.market.controller;
 
 import com.jihoon.market.mapper.MemberMapper;
 import com.jihoon.market.model.Member;
+import com.jihoon.market.util.SHA256;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,6 +22,10 @@ public class MemberController {
 
         int result = -1;
         try {
+            String pw = member.getMemPw();
+            String hash = SHA256.encrypt(pw);
+            member.setMemPw(hash);
+
             result = memberMapper.insertMember(member);
         } catch (DataIntegrityViolationException e) { // 데이터 무경성 위반 인경우
             log.warn(" --- 중복 ---" );

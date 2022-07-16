@@ -21,4 +21,8 @@
         WHERE MEM_ID=#{memId}
     </update>
 
+    <select id="selectMember" parameterType="String" resultType="Member">
+        select * from MEMBER where MEM_ID = #{memId}
+    </select>
+
 </mapper>

@@ -8,4 +8,6 @@ public interface MemberMapper {
     int insertMember(Member member);
 
     int updateMember(Member member);
+
+    Member selectMember(String memId);
 }

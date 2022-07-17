@@ -1,11 +1,14 @@
 package com.jihoon.market.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jihoon.market.mapper.ItemMapper;
 import com.jihoon.market.model.Item;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -17,8 +20,13 @@ public class ItemController {
     ItemMapper itemMapper;
 
     @PostMapping()
-    public int createItem(Item item) {
-        log.info("create item: {}", item);
+    public int createItem(@RequestParam("image") MultipartFile file,
+                          @RequestParam("item") String itemString) throws IOException {
+        log.info("create item: {}", itemString);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Item item = objectMapper.readValue(itemString, Item.class);
+
+        item.setImgOne(file.getBytes());
         return itemMapper.insertItem(item);
     }
 

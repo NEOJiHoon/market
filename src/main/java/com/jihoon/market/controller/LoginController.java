@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 
 @RequestMapping("/login")
@@ -20,7 +22,8 @@ public class LoginController {
     MemberMapper memberMapper;
 
     @PostMapping
-    public String login(@RequestBody Member member) throws NoSuchAlgorithmException {
+    public String login(@RequestBody Member member,
+                        HttpServletRequest request) throws NoSuchAlgorithmException {
         String id = member.getMemId();
         String pw = member.getMemPw();
         if (id == null || "".equals(id.trim())) {
@@ -33,6 +36,9 @@ public class LoginController {
         if (dbMember == null || !hash.equals(dbMember.getMemPw())) {
             return "잘못된 로그인 정보입니다.";
         }
+        // 로그인 성공
+        HttpSession session = request.getSession();
+        session.setAttribute("id", id);
 
         return "success";
     }

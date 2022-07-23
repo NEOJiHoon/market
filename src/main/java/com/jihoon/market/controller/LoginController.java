@@ -5,10 +5,7 @@ import com.jihoon.market.mapper.MemberMapper;
 import com.jihoon.market.model.Member;
 import com.jihoon.market.util.SHA256;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -41,5 +38,16 @@ public class LoginController {
         session.setAttribute("id", id);
 
         return "success";
+    }
+
+    @GetMapping("/is")
+    public int isLogin(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("id");
+        if (!request.isRequestedSessionIdValid() || id == null || id.trim().equals("")) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 }

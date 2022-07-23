@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -21,12 +24,24 @@ public class ItemController {
 
     @PostMapping()
     public int createItem(@RequestParam("image") MultipartFile file,
-                          @RequestParam("item") String itemString) throws IOException {
+                          @RequestParam("item") String itemString,
+                          HttpServletRequest request) throws IOException {
         log.info("create item: {}", itemString);
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("id");
+        if (!request.isRequestedSessionIdValid() || id == null || id.trim().equals("")) {
+            // 로그인하지 않은 상태로 예외 처리
+            return -1;
+        }
         ObjectMapper objectMapper = new ObjectMapper();
         Item item = objectMapper.readValue(itemString, Item.class);
-
+        item.setMemId(id);
+        Long nextItemNo = itemMapper.selectNextItemNo(id);
+        item.setItemNo(nextItemNo);
         item.setImgOne(file.getBytes());
+        item.setCreateDt(LocalDateTime.now());
+        item.setSoldOutYn("N");
+        item.setDelYn("N");
         return itemMapper.insertItem(item);
     }
 

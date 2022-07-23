@@ -1,3 +1,18 @@
+function isLogin() {
+    $.ajax({
+        type: "GET",
+        url: "/login/is",
+        success: function(res){
+            console.log("res: ", res);
+            if (res === -1) {
+                alert("권한이 없습니다.");
+                location.href = '/login.html';
+            }
+        }
+    });
+}
+isLogin();
+
 function createItem() {
     var params = {
         title: $('#subject').val(),
@@ -22,7 +37,12 @@ function createItem() {
         data: formData,
         success: function (res) {
             console.log("res: ", res);
-            alert("성공");
+            if (res === -1) {
+                alert("권한이 없습니다.");
+                location.href = '/login.html';
+            } else {
+                alert("성공");
+            }
         },
         err: function(err){
             console.log("err:", err);
@@ -30,3 +50,6 @@ function createItem() {
         }
     });
 }
+
+
+

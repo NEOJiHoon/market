@@ -16,4 +16,5 @@ public interface ItemMapper {
 
     List<Item> selectItemList();
 
+    Long selectNextItemNo(String id);
 }

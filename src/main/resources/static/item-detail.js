@@ -18,6 +18,8 @@ function getItem() {
             console.log("res: ", res);
             $("#title").html("").append(res.title);
             $("#memId").html("판매자: ").append(res.memId);
+            $("#price").html("가격: ").append(res.price + '원');
+            $("#contents").html("").append(res.contents);
         }
     });
 }

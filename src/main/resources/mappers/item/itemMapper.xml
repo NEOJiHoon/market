@@ -42,4 +42,8 @@
     <select id="selectNextItemNo" resultType="long" parameterType="String">
         select ifnull(max(ITEM_NO), 0) + 1 from ITEM where MEM_ID = #{memId}
     </select>
+
+    <select id="selectItem" resultType="Item" parameterType="map">
+        select * from ITEM where MEM_ID = #{memId} and ITEM_NO = #{itemNo}
+    </select>
 </mapper>

@@ -1,3 +1,8 @@
+function goDetail(memId, itemNo) {
+    console.log('goDetail', memId, itemNo);
+    location.href='/item-detail.html?memId=' + memId + '&itemNo=' +itemNo;
+}
+
 function getItemList() {
     $.ajax({
         type:"GET",
@@ -11,7 +16,9 @@ function getItemList() {
                     .append("<div class=\"container\">"
                         + "<div class=\"well\">" + "<div class=\"media\">"
                         + "<a class=\"pull-left\" href=\"#\">"
-                        + "<img class=\"media-object\" width='250' height='250' src=\"data:image/jpg;base64," + list[i].imgOne + "\">"
+                        + "<img class=\"media-object\" width='250' height='250'"
+                        + "onclick='goDetail(\"" + list[i].memId + "\"," + list[i].itemNo + ")' "
+                        + "src=\"data:image/jpg;base64," + list[i].imgOne + "\">"
                         + "</a>"
                         + "<div class=\"media-body\">"
                         + "<h4 class=\"media-heading\">" + list[i].title + "</h4>"

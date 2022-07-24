@@ -4,6 +4,7 @@ import com.jihoon.market.model.Item;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ItemMapper {
@@ -17,4 +18,6 @@ public interface ItemMapper {
     List<Item> selectItemList();
 
     Long selectNextItemNo(String id);
+
+    Item selectItem(Map<String, Object> map);
 }

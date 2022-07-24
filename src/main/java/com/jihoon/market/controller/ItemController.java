@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RequestMapping("/item")
@@ -65,6 +67,16 @@ public class ItemController {
         List<Item> itemList = itemMapper.selectItemList();
         log.info(":: 아이템 목록 :: {}", itemList);
         return itemList;
+    }
+
+    @GetMapping("/detail")
+    public Item getItem(@RequestParam String memId, @RequestParam Long itemNo) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("memId", memId);
+        map.put("itemNo", itemNo);
+        Item item = itemMapper.selectItem(map);
+        log.info(":: 아이템 상세 :: {}", item);
+        return item;
     }
 
 }

@@ -12,6 +12,10 @@ function isLogin() {
     });
 }
 isLogin();
+function cancel() {
+    location.href = "/item-list.html";
+}
+
 
 function createItem() {
     var params = {

@@ -20,6 +20,9 @@ function getItem() {
             $("#memId").html("판매자: ").append(res.memId);
             $("#price").html("가격: ").append(res.price + '원');
             $("#contents").html("").append(res.contents);
+
+            $("#img_l_1").attr('src', "data:image/jpg;base64," + res.imgOne);
+            $("#img_s_1").attr('src', "data:image/jpg;base64," + res.imgOne);
         }
     });
 }

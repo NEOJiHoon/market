@@ -54,3 +54,8 @@ function deleteItem() {
         });
     }
 }
+
+var id = sessionStorage.getItem("id");
+if (id !== memId) {
+    $("#btn-del").remove();
+}

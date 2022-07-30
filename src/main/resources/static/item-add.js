@@ -46,6 +46,7 @@ function createItem() {
                 location.href = '/login.html';
             } else {
                 alert("성공");
+                location.href = '/item-list.html';
             }
         },
         err: function(err){

@@ -19,6 +19,7 @@ function login(event) {
         success : function(data){
             console.log('data: ', data);
             if (data === 'success') {
+                sessionStorage.setItem("id", params.memId);
                 location.href = '/item-list.html';
             } else {
                 alert(data);

@@ -54,8 +54,20 @@ public class ItemController {
     }
 
     @DeleteMapping()
-    public int deleteItem(@RequestParam String memId, @RequestParam Long itemNo) {
+    public int deleteItem(@RequestParam String memId, @RequestParam Long itemNo,
+                          HttpServletRequest request) {
         log.info("::키:: 멤버ID:{}, 아이템번호:{}", memId, itemNo);
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("id");
+        if (!request.isRequestedSessionIdValid() || id == null || id.trim().equals("")) {
+            // 로그인하지 않은 상태로 예외 처리
+            return -1;
+        }
+        if (!id.equals(memId)) {
+            // 다른사람의 글을 지울 수 없습니다.
+            return -2;
+        }
+
         Item item = new Item();
         item.setMemId(memId);
         item.setItemNo(itemNo);

@@ -16,15 +16,41 @@ function getItem() {
         url: "/item/detail?memId=" + memId + "&itemNo=" + itemNo,
         success: function(res){
             console.log("res: ", res);
-            $("#title").html("").append(res.title);
-            $("#memId").html("판매자: ").append(res.memId);
-            $("#price").html("가격: ").append(res.price + '원');
-            $("#contents").html("").append(res.contents);
+            if (res) {
+                $("#title").html("").append(res.title);
+                $("#memId").html("판매자: ").append(res.memId);
+                $("#price").html("가격: ").append(res.price + '원');
+                $("#contents").html("").append(res.contents);
 
-            $("#img_l_1").attr('src', "data:image/jpg;base64," + res.imgOne);
-            $("#img_s_1").attr('src', "data:image/jpg;base64," + res.imgOne);
+                $("#img_l_1").attr('src', "data:image/jpg;base64," + res.imgOne);
+                $("#img_s_1").attr('src', "data:image/jpg;base64," + res.imgOne);
+            } else {
+                location.href = "/item-list.html";
+            }
+
+
         }
     });
 }
 
 getItem();
+
+function deleteItem() {
+    if (confirm("삭제하시겠습니까?")) {
+        $.ajax({
+            type: "DELETE",
+            url: "/item?memId=" + memId + "&itemNo=" + itemNo,
+            success: function(res){
+                console.log("res: ", res);
+                if (res === 1) {
+                    alert("삭제 되었습니다.");
+                    location.href = "/item-list.html";
+                } else if (res === -1) {
+                    alert("삭제할 권한이 없습니다.");
+                } else if (res === -2) {
+                    alert("다른사람의 글을 삭제할 수 없습니다.");
+                }
+            }
+        });
+    }
+}

@@ -36,7 +36,7 @@
     </update>
 
     <select id="selectItemList" resultType="Item">
-        select * from ITEM
+        select * from ITEM where (DEL_YN = 'N' OR DEL_YN is null)
     </select>
 
     <select id="selectNextItemNo" resultType="long" parameterType="String">
@@ -45,5 +45,6 @@
 
     <select id="selectItem" resultType="Item" parameterType="map">
         select * from ITEM where MEM_ID = #{memId} and ITEM_NO = #{itemNo}
+                            and (DEL_YN = 'N' OR DEL_YN is null)
     </select>
 </mapper>

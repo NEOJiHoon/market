@@ -3,10 +3,10 @@ function goDetail(memId, itemNo) {
     location.href='/item-detail.html?memId=' + memId + '&itemNo=' +itemNo;
 }
 
-function getItemList() {
+function getItemList(searchType) {
     $.ajax({
         type:"GET",
-        url:"/item",
+        url:"/item?type=" + searchType,
         success: function(list){
             console.log("list: ", list);
 
@@ -37,8 +37,13 @@ function getItemList() {
         }
     })
 }
-getItemList();
+getItemList(0);
 
+function searchChanged() {
+    var element = $("#search-type");
+    console.log('option value: ', element.val());
+    getItemList(element.val());
+}
 
 // contents: "맛좋은 수박"
 // createDt: null

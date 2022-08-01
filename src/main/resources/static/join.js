@@ -20,6 +20,16 @@ function join() {
             } else if (data === 1) {
                 alert("가입이 완료되었습니다.");
                 location.href = '/item-list.html';
+            } else if (data === -3) {
+                alert("ID를 입력해 주세요.");
+            } else if (data === -4) {
+                alert("이름을 입력해 주세요.");
+            } else if (data === -5) {
+                alert("닉네임을 입력해 주세요.");
+            } else if (data === -6) {
+                alert("패스워드를 입력해 주세요.");
+            } else if (data === -7) {
+                alert("휴대폰번호를 입력해 주세요.");
             } else {
                 alert("가입처리 중 오류가 발생했습니다.");
             }

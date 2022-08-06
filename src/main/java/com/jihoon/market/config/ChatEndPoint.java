@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 
 @Slf4j
 @Component
@@ -29,7 +30,12 @@ public class ChatEndPoint {
 
     @OnMessage
     public void chatMessage(ItemChat itemChat, @PathParam("memId") String memId) {
+        log.info("{} : {}", itemChat.getMemId(), itemChat.getMsg());
 
+        // 메시지 보내기
+        itemChat.setToMemId(memId);
+        itemChat.setMsg("잘받았다.");
+        talk(itemChat);
     }
 
     @OnClose
@@ -41,5 +47,17 @@ public class ChatEndPoint {
     @OnError
     public void chatError(Session session, Throwable error, @PathParam("memId") String memId) {
 
+    }
+
+    public void talk(ItemChat itemChat) {
+        String toMemId = itemChat.getToMemId();
+        if (ChatBox.box.containsKey(toMemId)) {
+            ChatEndPoint cep = ChatBox.box.get(toMemId);
+            try {
+                cep.session.getBasicRemote().sendObject(itemChat);
+            } catch (IOException | EncodeException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

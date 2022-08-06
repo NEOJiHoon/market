@@ -19,6 +19,10 @@ function connect() {
         websocket.onopen = function (evt) {
             console.log(memId + " 님 반갑습니다.");
         };
+        websocket.onmessage = function (evt) {
+            var itemChat = JSON.parse(evt.data);
+            console.log("ItemChat", itemChat);
+        }
 
     }
 }
@@ -31,7 +35,13 @@ function disconnect() {
 }
 
 function sendMessage() {
-
+    var message = content.value;
+    sendMessageObj.memId = memId;
+    sendMessageObj.msg = message;
+    console.log('sendMessageObj', sendMessageObj);
+    websocket.send(JSON.stringify(sendMessageObj));
 }
+
+
 
 window.addEventListener("load", init, false);

@@ -13,4 +13,11 @@
         SELECT * FROM ITEM_CHAT
     </select>
 
+    <select id="selectNextChatNo" parameterType="ItemChat" resultType="long">
+        select ifnull(max(CHAT_NO), 0) + 1 from ITEM_CHAT
+        where MEM_ID = #{memId}
+          and ITEM_NO = #{itemNo}
+          and TO_MEM_ID = #{toMemId}
+    </select>
+
 </mapper>

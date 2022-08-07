@@ -3,7 +3,8 @@ var websocket;
 var output;
 var content;
 
-var memId = prompt("what's your name?");
+var memId = prompt("your id?");
+var toMemId = prompt("to memId?");
 
 var sendMessageObj = {};
 
@@ -15,7 +16,7 @@ function  init() {
 
 function connect() {
     if (!websocket) {
-        websocket = new WebSocket(uri + memId);
+        websocket = new WebSocket(uri + memId + '/' +toMemId);
         websocket.onopen = function (evt) {
             console.log(memId + " 님 반갑습니다.");
         };

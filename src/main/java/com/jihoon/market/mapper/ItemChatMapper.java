@@ -11,4 +11,6 @@ public interface ItemChatMapper {
     int insertItemChat(ItemChat itemChat);
 
     List<ItemChat> selectItemChatList();
+
+    long selectNextChatNo(ItemChat itemChat);
 }

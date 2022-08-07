@@ -35,6 +35,17 @@ function getItem() {
 
 getItem();
 
+function goChat() {
+    var loginId = sessionStorage.getItem("id");
+    if (loginId) {
+        // 로그인한 경우
+        location.href="/item-chat.html?toMemId=" + memId + "&itemNo=" + itemNo;
+    } else {
+        // 로그인 안 한 경우
+        location.href="/login.html";
+    }
+}
+
 function deleteItem() {
     if (confirm("삭제하시겠습니까?")) {
         $.ajax({

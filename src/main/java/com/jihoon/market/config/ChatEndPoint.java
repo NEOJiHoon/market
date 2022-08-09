@@ -14,7 +14,7 @@ import java.io.IOException;
 @Slf4j
 @Component
 @ServerEndpoint(
-        value = "/chat/{memId}/{toMemId}",
+        value = "/chat/{toMemId}/{memId}/{itemNo}",
         encoders = {ChatEncoder.class},
         decoders = {ChatDecoder.class},
         configurator = CustomSpringConfigurator.class
@@ -28,7 +28,8 @@ public class ChatEndPoint {
 
     @OnOpen
     public void chatOpen(Session session, @PathParam("memId") String memId,
-                         @PathParam("toMemId") String toMemId) {
+                         @PathParam("toMemId") String toMemId,
+                         @PathParam("itemNo") String itemNo) {
         this.session = session;
         ChatBox.box.put(memId, this);
         log.info("Chat open Id: {} box: {}", memId, ChatBox.box);
@@ -37,13 +38,15 @@ public class ChatEndPoint {
 
     @OnMessage
     public void chatMessage(ItemChat itemChat, @PathParam("memId") String memId,
-                            @PathParam("toMemId") String toMemId) {
+                            @PathParam("toMemId") String toMemId,
+                            @PathParam("itemNo") String itemNo) {
         log.info("{} : {}", itemChat.getMemId(), itemChat.getMsg());
 
         // 메시지 보내기
+        itemChat.setMemId(memId);
         itemChat.setToMemId(toMemId);
         itemChat.setMsg(itemChat.getMsg());
-        itemChat.setItemNo(1L);
+        itemChat.setItemNo(Long.parseLong(itemNo));
         long nextChatNo = itemChatMapper.selectNextChatNo(itemChat);
         itemChat.setChatNo(nextChatNo);
         talk(itemChat);
@@ -51,15 +54,17 @@ public class ChatEndPoint {
 
     @OnClose
     public void chatClose(Session session, @PathParam("memId") String memId,
-                          @PathParam("toMemId") String toMemId) {
+                          @PathParam("toMemId") String toMemId,
+                          @PathParam("itemNo") String itemNo) {
         ChatBox.box.remove(memId);
         log.info("chat close: {} box: {}", memId, ChatBox.box);
     }
 
     @OnError
     public void chatError(Session session, Throwable error, @PathParam("memId") String memId,
-                          @PathParam("toMemId") String toMemId) {
-
+                          @PathParam("toMemId") String toMemId,
+                          @PathParam("itemNo") String itemNo) {
+        log.error("chat error: {}", session.getId(), error);
     }
 
     public void talk(ItemChat itemChat) {

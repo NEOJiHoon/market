@@ -9,8 +9,12 @@
         VALUES (#{memId}, #{itemNo}, #{toMemId}, #{chatNo}, #{msg}, #{writerTp}, NOW())
     </insert>
 
-    <select id="selectItemChatList" resultType="ItemChat">
+    <select id="selectItemChatList" resultType="ItemChat" parameterType="map">
         SELECT * FROM ITEM_CHAT
+        where MEM_ID = #{memId}
+          and ITEM_NO = #{itemNo}
+          and TO_MEM_ID = #{toMemId}
+        order by CHAT_NO
     </select>
 
     <select id="selectNextChatNo" parameterType="ItemChat" resultType="long">

@@ -14,7 +14,7 @@ import java.io.IOException;
 @Slf4j
 @Component
 @ServerEndpoint(
-        value = "/chat/{toMemId}/{memId}/{itemNo}",
+        value = "/chat/{toMemId}/{memId}/{itemNo}/{writerTp}",
         encoders = {ChatEncoder.class},
         decoders = {ChatDecoder.class},
         configurator = CustomSpringConfigurator.class
@@ -29,7 +29,8 @@ public class ChatEndPoint {
     @OnOpen
     public void chatOpen(Session session, @PathParam("memId") String memId,
                          @PathParam("toMemId") String toMemId,
-                         @PathParam("itemNo") String itemNo) {
+                         @PathParam("itemNo") long itemNo,
+                         @PathParam("writerTp") int writerTp) {
         this.session = session;
         ChatBox.box.put(memId, this);
         log.info("Chat open Id: {} box: {}", memId, ChatBox.box);
@@ -39,23 +40,26 @@ public class ChatEndPoint {
     @OnMessage
     public void chatMessage(ItemChat itemChat, @PathParam("memId") String memId,
                             @PathParam("toMemId") String toMemId,
-                            @PathParam("itemNo") String itemNo) {
+                            @PathParam("itemNo") long itemNo,
+                            @PathParam("writerTp") int writerTp) {
         log.info("{} : {}", itemChat.getMemId(), itemChat.getMsg());
 
         // 메시지 보내기
         itemChat.setMemId(memId);
         itemChat.setToMemId(toMemId);
         itemChat.setMsg(itemChat.getMsg());
-        itemChat.setItemNo(Long.parseLong(itemNo));
+        itemChat.setItemNo(itemNo);
         long nextChatNo = itemChatMapper.selectNextChatNo(itemChat);
         itemChat.setChatNo(nextChatNo);
+        itemChat.setWriterTp(writerTp);
         talk(itemChat);
     }
 
     @OnClose
     public void chatClose(Session session, @PathParam("memId") String memId,
                           @PathParam("toMemId") String toMemId,
-                          @PathParam("itemNo") String itemNo) {
+                          @PathParam("itemNo") long itemNo,
+                          @PathParam("writerTp") int writerTp) {
         ChatBox.box.remove(memId);
         log.info("chat close: {} box: {}", memId, ChatBox.box);
     }
@@ -63,7 +67,8 @@ public class ChatEndPoint {
     @OnError
     public void chatError(Session session, Throwable error, @PathParam("memId") String memId,
                           @PathParam("toMemId") String toMemId,
-                          @PathParam("itemNo") String itemNo) {
+                          @PathParam("itemNo") long itemNo,
+                          @PathParam("writerTp") int writerTp) {
         log.error("chat error: {}", session.getId(), error);
     }
 

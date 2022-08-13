@@ -6,7 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -23,8 +25,14 @@ public class ItemChatController {
     }
 
     @GetMapping
-    public List<ItemChat> getItemChatList() {
-        List<ItemChat> itemChatList = itemChatMapper.selectItemChatList();
+    public List<ItemChat> getItemChatList(@RequestParam String memId,
+                                          @RequestParam Long itemNo,
+                                          @RequestParam String toMemId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("memId", memId);
+        map.put("itemNo", itemNo);
+        map.put("toMemId", toMemId);
+        List<ItemChat> itemChatList = itemChatMapper.selectItemChatList(map);
         log.info("아이템 채팅 목록: {}", itemChatList);
         return itemChatList;
     }

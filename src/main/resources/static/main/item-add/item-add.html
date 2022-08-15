@@ -1,1 +1,44 @@
-상품등록 페이지
+<div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row" style="justify-content: center;">
+            <div class="col-lg-7">
+                <div class="p-5">
+                    <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">상품 등록</h1>
+                    </div>
+                    <form class="user">
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user" id="subject"
+                                   placeholder="제목" style="border-radius: unset;">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control form-control-user" id="price"
+                                   placeholder="가격" style="border-radius: unset;">
+                        </div>
+                        <div class="form-group">
+                            <textarea type="text" class="form-control form-control-user" id="item-content"
+                                      placeholder="내용" style="border-radius: unset;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="file" class="form-control form-control-user" id="image"
+                                   placeholder="이미지" style="border-radius: unset;height: auto;">
+                        </div>
+                        <div style="flex-wrap: nowrap;display: flex;">
+                            <button class="btn btn-primary btn-user btn-block"
+                                    onclick="createItem()">
+                                상품등록
+                            </button>
+                            <button class="btn btn-warning btn-user btn-block"
+                                    onclick="cancel()" style="margin-top: auto;margin-left: 1.5rem;">
+                                등록취소
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/main/item-add/item-add.js"></script>

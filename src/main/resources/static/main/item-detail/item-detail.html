@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="/main/item-detail/item-detail.css">
+
+<div class="card">
+    <div class="container-fliud">
+        <div class="wrapper row">
+            <div class="preview col-md-6">
+
+                <div class="preview-pic tab-content">
+                    <div class="tab-pane active" id="pic-1"><img id="img_l_1" /></div>
+                    <div class="tab-pane" id="pic-2"><img id="img_l_2" /></div>
+                    <div class="tab-pane" id="pic-3"><img id="img_l_3" /></div>
+                </div>
+                <ul class="preview-thumbnail nav nav-tabs">
+                    <li class="active"><a data-target="#pic-1" data-toggle="tab"><img id="img_s_1" /></a></li>
+                    <li><a data-target="#pic-2" data-toggle="tab"><img id="img_s_2" /></a></li>
+                    <li><a data-target="#pic-3" data-toggle="tab"><img id="img_s_3" /></a></li>
+                </ul>
+
+            </div>
+            <div class="details col-md-6">
+                <h3 class="product-title" id="title"></h3>
+                <h4 class="price" id="memId"></h4>
+                <h4 class="price" id="price"></h4>
+                <p class="product-description" id="contents"></p>
+
+
+                <div class="action">
+                    <button class="link btn btn-primary" type="button" style="padding: 1.2em 1.5em"
+                            onclick="goChat()">
+                        <span class="fa fa-comment" style="font-size: 28px;"></span>
+                    </button>
+                    <button class="like btn btn-danger" id="btn-del" type="button" onclick="deleteItem()">
+                        <span class="fa fa-trash-o" style="font-size: 30px;"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/main/item-detail/item-detail.js"></script>

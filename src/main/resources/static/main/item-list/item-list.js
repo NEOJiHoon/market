@@ -38,7 +38,7 @@ function makeItemListHtml(item) {
         "                    </div>\n" +
         "                    <div class=\"col-auto\">\n" +
         "                       <img width='150' height='150'" +
-        "                           onclick='goDetail(\"" + item.memId + "\"," + item.itemNo + ")' " +
+        "                           onclick='goItemDetail(\"" + item.memId + "\"," + item.itemNo + ")' " +
         "                           src=\"data:image/jpg;base64," + item.imgOne + "\">" +
         "                    </div>\n" +
         "                </div>\n" +

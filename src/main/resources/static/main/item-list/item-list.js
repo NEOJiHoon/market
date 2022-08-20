@@ -27,6 +27,14 @@ function searchChanged() {
 }
 
 function makeItemListHtml(item) {
+
+    var imgStr = "";
+    if (item.imgOne) {
+        imgStr = "src=\"data:image/jpg;base64," + item.imgOne + "\">";
+    } else {
+        imgStr = "src=\"/img/undraw_rocket.svg\">";
+    }
+
     return "<div class=\"col-xl-3 col-md-6 mb-4\">\n" +
         "        <div class=\"card border-left-primary shadow h-100 py-2\">\n" +
         "            <div class=\"card-body\">\n" +
@@ -39,7 +47,9 @@ function makeItemListHtml(item) {
         "                    <div class=\"col-auto\">\n" +
         "                       <img width='150' height='150'" +
         "                           onclick='goItemDetail(\"" + item.memId + "\"," + item.itemNo + ")' " +
-        "                           src=\"data:image/jpg;base64," + item.imgOne + "\">" +
+
+        imgStr +
+
         "                    </div>\n" +
         "                </div>\n" +
         "            </div>\n" +

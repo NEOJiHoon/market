@@ -10,8 +10,14 @@ function getItem() {
                 $("#price").html("가격: ").append(res.price + '원');
                 $("#contents").html("").append(res.contents);
 
-                $("#img_l_1").attr('src', "data:image/jpg;base64," + res.imgOne);
-                $("#img_s_1").attr('src', "data:image/jpg;base64," + res.imgOne);
+                if (res.imgOne) {
+                    $("#img_l_1").attr('src', "data:image/jpg;base64," + res.imgOne);
+                    $("#img_s_1").attr('src', "data:image/jpg;base64," + res.imgOne);
+                } else {
+                    $("#img_l_1").attr('src', "/img/undraw_rocket.svg");
+                    $("#img_s_1").attr('src', "/img/undraw_rocket.svg");
+                }
+
             } else {
                 location.href = "/";
             }

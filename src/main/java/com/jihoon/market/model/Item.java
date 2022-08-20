@@ -24,4 +24,5 @@ public class Item {
     private LocalDateTime soldOutDt;
     private String delYn;
     private LocalDateTime delDt;
+    private String nicNm;
 }

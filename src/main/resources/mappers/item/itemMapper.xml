@@ -44,7 +44,8 @@
     </select>
 
     <select id="selectItem" resultType="Item" parameterType="map">
-        select * from ITEM where MEM_ID = #{memId} and ITEM_NO = #{itemNo}
-                            and (DEL_YN = 'N' OR DEL_YN is null)
+        select I.*, M.NIC_NM from ITEM I INNER JOIN MEMBER M on I.MEM_ID = M.MEM_ID
+                 where I.MEM_ID = #{memId} and I.ITEM_NO = #{itemNo}
+                    and (I.DEL_YN = 'N' OR I.DEL_YN is null)
     </select>
 </mapper>

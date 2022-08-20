@@ -27,7 +27,7 @@ function goChat() {
     var loginId = sessionStorage.getItem("id");
     if (loginId) {
         // 로그인한 경우
-        location.href="/item-chat.html?memId=" + memId + "&itemNo=" + itemNo;
+        chatRendering();
     } else {
         // 로그인 안 한 경우
         location.href="/login.html";

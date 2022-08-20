@@ -22,3 +22,30 @@ function goItemDetail(memId, itemNo) {
     g_selected_item_no = itemNo;
     $("#main").load("/main/item-detail/item-detail.html");
 }
+
+var g_login_id = sessionStorage.getItem("id");
+if (g_login_id) {
+    // 로그인이 된 경우
+    $("#login-id").html(g_login_id);
+} else {
+    // 로그인이 안 된 경우
+    $("#login-id-menu").detach();
+    $("#login-img").detach();
+    $("#login-id").click(function() {
+        location.href="/login.html";
+    });
+}
+
+function logout() {
+    $.ajax({
+        type : "GET",
+        url : "/logout",
+        success : function(data){
+            console.log('data: ', data);
+            if (data === 'success') {
+                sessionStorage.removeItem("id");
+                location.href = '/';
+            }
+        }
+    });
+}

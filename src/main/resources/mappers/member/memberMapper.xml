@@ -15,9 +15,13 @@
         update MEMBER SET
                           MEM_NM=#{memNm},
                           NIC_NM=#{nicNm},
-                          MEM_PW=#{memPw},
-                          MEM_CP=#{memCp},
-                          MEM_IMG=#{memImg}
+                          <if test="memPw != null and memPw != ''">
+                              MEM_PW=#{memPw},
+                          </if>
+                          <if test="memImg != null and memImg != ''">
+                              MEM_IMG=#{memImg},
+                          </if>
+                          MEM_CP=#{memCp}
         WHERE MEM_ID=#{memId}
     </update>
 

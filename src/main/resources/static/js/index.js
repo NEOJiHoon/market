@@ -14,6 +14,10 @@ function chatRendering() {
     $("#main").load("/main/item-chat/item-chat.html");
 }
 
+function  myRendering() {
+    $("#main").load("/main/my/my.html");
+}
+
 // 글로벌(전역으로 사용하기 위해) 변수 2개 선언
 var g_selected_mem_id;
 var g_selected_item_no;

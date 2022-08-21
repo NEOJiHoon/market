@@ -1,5 +1,6 @@
 package com.jihoon.market.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jihoon.market.mapper.MemberMapper;
 import com.jihoon.market.model.Member;
 import com.jihoon.market.util.SHA256;
@@ -7,6 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Slf4j
 @RequestMapping("/member")
@@ -56,8 +60,24 @@ public class MemberController {
     }
 
     @PutMapping()
-    public int modifyMember(Member member) {
-        log.info("modify member: {}", member);
+    public int modifyMember(@RequestParam(value = "memImg", required = false)MultipartFile file,
+                            @RequestParam("member") String memberString) throws IOException {
+        log.info("modify member: {}", memberString);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Member member = objectMapper.readValue(memberString, Member.class);
+
+        if (file != null) {
+            // 파일이 있는 경우 파일을 멤버에 셋한다.
+            member.setMemImg(file.getBytes());
+        }
         return memberMapper.updateMember(member);
+    }
+
+    @GetMapping
+    public Member getMember(@RequestParam String memId) {
+        Member member = memberMapper.selectMember(memId);
+        log.info("get member: {}", member);
+        return member;
     }
 }

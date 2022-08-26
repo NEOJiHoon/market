@@ -11,6 +11,19 @@ function login(event) {
         memPw: $('#memPw').val()
     }
 
+    /*
+    var params 변수에 담긴 값
+
+    {
+        memId: "j"
+        memPw: "111"
+    }
+
+    JSON.stringify(params)
+    {       memId: "j",   memPw: "111"   }
+    memId=j&memPw=111
+     */
+
     $.ajax({
         type : "POST",
         url : "/login",
@@ -26,7 +39,12 @@ function login(event) {
             }
         },
         error : function(error){
-            alert('로그인오류');
+            console.log('error: ', error);
+            if (error.responseText) {
+                alert(error.responseText);
+            } else {
+                alert('로그인오류');
+            }
         }
     });
 

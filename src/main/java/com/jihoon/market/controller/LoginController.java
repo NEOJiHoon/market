@@ -19,25 +19,28 @@ public class LoginController {
     MemberMapper memberMapper;
 
     @PostMapping
-    public String login(@RequestBody Member member,
+    public Member login(@RequestBody Member member,
                         HttpServletRequest request) throws NoSuchAlgorithmException {
         String id = member.getMemId();
         String pw = member.getMemPw();
         if (id == null || "".equals(id.trim())) {
-            return "아이디를 정확히 입력하세요.";
+          throw new RuntimeException("아이디를 정확히 입력하세요.");
+         //   return "아이디를 정확히 입력하세요.";
         } else if (pw == null || "".equals(pw.trim())) {
-            return "패스워드를 정확히 입력하세요.";
+           throw new RuntimeException("패스워드를 정확히 입력하세요.");
+         //   return "패스워드를 정확히 입력하세요.";
         }
         Member dbMember = memberMapper.selectMember(id);
         String hash = SHA256.encrypt(pw);
         if (dbMember == null || !hash.equals(dbMember.getMemPw())) {
-            return "잘못된 로그인 정보입니다.";
+           throw new RuntimeException("잘못된 로그인 정보입니다.");
+         //     return "잘못된 로그인 정보입니다.";
         }
         // 로그인 성공
         HttpSession session = request.getSession();
         session.setAttribute("id", id);
 
-        return "success";
+        return dbMember;
     }
 
     @GetMapping("/is")

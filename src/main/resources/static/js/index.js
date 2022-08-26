@@ -31,6 +31,12 @@ var g_login_id = sessionStorage.getItem("id");
 if (g_login_id) {
     // 로그인이 된 경우
     $("#login-id").html(g_login_id);
+
+    if (sessionStorage.getItem("memImg")) {
+        // 세션스토리지에 이미지가 있는 경우, 로그인 옆에 아이콘의 이미지를 교체한다.
+        $("#login-img").attr('src', "data:image/jpg;base64," + sessionStorage.getItem("memImg"));
+    }
+
 } else {
     // 로그인이 안 된 경우
     $("#login-id-menu").detach();

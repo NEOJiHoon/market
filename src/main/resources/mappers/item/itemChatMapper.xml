@@ -24,4 +24,23 @@
           and TO_MEM_ID = #{toMemId}
     </select>
 
+    <select id="selectChatAlertList" parameterType="String" resultType="ChatAlert">
+        select
+            IC.MEM_ID,
+            IC.ITEM_NO,
+            IC.TO_MEM_ID, -- 누가
+            I.TITLE, -- 어떤 상품을
+            M.NIC_NM,
+            M.MEM_IMG
+        from (
+                 select distinct MEM_ID, ITEM_NO, TO_MEM_ID
+                 from ITEM_CHAT
+             ) IC -- 중복을 제거하여 우리가 가공한 테이블
+                 inner join ITEM I
+                            on IC.MEM_ID = I.MEM_ID and IC.ITEM_NO = I.ITEM_NO
+                 inner join MEMBER M
+                            on IC.TO_MEM_ID = M.MEM_ID
+        where IC.MEM_ID = #{memId}
+    </select>
+
 </mapper>

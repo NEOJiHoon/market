@@ -1,5 +1,6 @@
 package com.jihoon.market.mapper;
 
+import com.jihoon.market.model.ChatAlert;
 import com.jihoon.market.model.ItemChat;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,4 +15,6 @@ public interface ItemChatMapper {
     List<ItemChat> selectItemChatList(Map<String, Object> map);
 
     long selectNextChatNo(ItemChat itemChat);
+
+    List<ChatAlert> selectChatAlertList(String memId);
 }

@@ -1,6 +1,7 @@
 package com.jihoon.market.controller;
 
 import com.jihoon.market.mapper.ItemChatMapper;
+import com.jihoon.market.model.ChatAlert;
 import com.jihoon.market.model.ItemChat;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,14 @@ public class ItemChatController {
         List<ItemChat> itemChatList = itemChatMapper.selectItemChatList(map);
         log.info("아이템 채팅 목록: {}", itemChatList);
         return itemChatList;
+    }
+
+    @GetMapping("/alert")
+    public List<ChatAlert> getChatAlertList(@RequestParam String memId) {
+        log.info("chat alert list memId: {}",memId);
+        List<ChatAlert> chatAlertList = itemChatMapper.selectChatAlertList(memId);
+        log.info("chat alert list: {}", chatAlertList);
+        return chatAlertList;
     }
 
 }

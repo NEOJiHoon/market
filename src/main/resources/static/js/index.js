@@ -37,13 +37,49 @@ if (g_login_id) {
         $("#login-img").attr('src', "data:image/jpg;base64," + sessionStorage.getItem("memImg"));
     }
 
+    // 채팅알림 내역을 가져온다.
+    getChatAlertList();
+
 } else {
     // 로그인이 안 된 경우
     $("#login-id-menu").detach();
     $("#login-img").detach();
+    $("#chat-alert-list").detach();
     $("#login-id").click(function() {
         location.href="/login.html";
     });
+}
+
+function getChatAlertList() {
+    $.ajax({
+        type: "GET",
+        url : "/item/chat/alert?memId=" + g_login_id,
+        success : function (list){
+            console.log('chat alert list: ', list);
+            $("#chat-alert-data-list").html("");
+            for (var i in list) {
+                $("#chat-alert-data-list").append(makeChatAlertHtml(list[i]));
+            }
+        }
+    });
+}
+
+function makeChatAlertHtml(chatAlert) {
+    var imgHtml = "";
+    if (chatAlert.memImg) {
+        imgHtml = "<img class=\"rounded-circle\" src=\"data:image/jpg;base64," + chatAlert.memImg +"\">";
+    } else {
+        imgHtml = "<img class=\"rounded-circle\" src=\"img/undraw_profile.svg\">";
+    }
+    return "<a class=\"dropdown-item d-flex align-items-center\" href=\"#\">" +
+        "    <div class=\"dropdown-list-image mr-3\">" +
+        imgHtml +
+        "    </div>" +
+        "    <div class=\"font-weight-bold\">" +
+        "        <div class=\"text-truncate\">" + chatAlert.title + "</div>" +
+        "        <div class=\"small text-gray-500\">"+ chatAlert.nicNm +"(" + chatAlert.toMemId +")</div>" +
+        "    </div>" +
+        "</a>";
 }
 
 function logout() {
@@ -54,6 +90,7 @@ function logout() {
             console.log('data: ', data);
             if (data === 'success') {
                 sessionStorage.removeItem("id");
+                sessionStorage.removeItem("memImg");
                 location.href = '/';
             }
         }

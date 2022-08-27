@@ -23,7 +23,7 @@ function init() {
 
     $.ajax({
         type:"GET",
-        url: "/item/chat?memId=" + g_selected_mem_id + "&itemNo=" + g_selected_item_no + "&toMemId=" + toMemId,
+        url: "/item/chat?memId=" + g_login_id + "&itemNo=" + g_chat_alert_item_no + "&toMemId=" + g_chat_alert_buyer_id,
         success: function (chats){
             console.log("chats: ", chats);
             chatList.html("");
@@ -35,22 +35,20 @@ function init() {
 }
 
 function makeHtmlMsg(msg, creatDt, writerTp) {
-    return "<div class=\"d-flex justify-content-" + (writerTp === 1 ? "end" : "start") + " mb-4\">"
-        + "<div class=\"msg_cotainer" + (writerTp === 1 ? "_send" : "") + "\">"
+    return "<div class=\"d-flex justify-content-" + (writerTp === 0 ? "end" : "start") + " mb-4\">"
+        + "<div class=\"msg_cotainer" + (writerTp === 0 ? "_send" : "") + "\">"
         + msg
-        + "<span class=\"msg_time" + (writerTp === 1 ? "_send" : "") + "\">"
+        + "<span class=\"msg_time" + (writerTp === 0 ? "_send" : "") + "\">"
         + moment(creatDt).format('LT');
     + "</span></div></div>";
 }
 
 function connect() {
     if (!websocket) {
-        websocket = new WebSocket(uri + toMemId + '/' + g_selected_mem_id + '/' + g_selected_item_no + '/1' );
-        // 웹소켓이 연결되었을 때 한 번 호출되는 함수
+        websocket = new WebSocket(uri + g_login_id + '/' + g_chat_alert_buyer_id + '/' + g_chat_alert_item_no + '/0' );
         websocket.onopen = function (evt) {
             console.log(toMemId + "입장!");
         };
-        // 웹소켓을 통해서 서버로부터 메시지가 해당 브라우저로 전달받을 때 마다 호출되는 함수
         websocket.onmessage = function (evt) {
             var itemChat = JSON.parse(evt.data);
             console.log(itemChat.memId + " : " + itemChat.msg);
@@ -58,7 +56,6 @@ function connect() {
     }
 }
 
-// 구매자가 글을 쓰고 글 전송버튼을 눌렀을 떄 호출되는 함수
 function sendMessage() {
     var msg = chatInput.val();
     console.log("메세지: ", msg);
@@ -66,11 +63,11 @@ function sendMessage() {
     var sendMessageObj = {
         "msg": msg
     }
-    // 웹소켓을 통해 서버로 메시지를 전송
+
     websocket.send(JSON.stringify(sendMessageObj));
     chatInput.val("");
 
-    var htmlMsg = makeHtmlMsg(msg, moment(), 1); //글쓴이가 구매자이므로 1번
+    var htmlMsg = makeHtmlMsg(msg, moment(), 0); //전송하는 사람은 판매자이므로 0으로 세팅
 
     chatList.append(htmlMsg);
 }

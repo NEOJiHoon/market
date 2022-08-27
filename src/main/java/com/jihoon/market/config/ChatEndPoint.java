@@ -1,5 +1,6 @@
 package com.jihoon.market.config;
 
+import com.jihoon.market.code.Const;
 import com.jihoon.market.mapper.ItemChatMapper;
 import com.jihoon.market.model.ItemChat;
 import lombok.extern.slf4j.Slf4j;
@@ -32,8 +33,8 @@ public class ChatEndPoint {
                          @PathParam("itemNo") long itemNo,
                          @PathParam("writerTp") int writerTp) {
         this.session = session;
-        ChatBox.box.put(memId, this);
-        log.info("Chat open Id: {} box: {}", memId, ChatBox.box);
+        ChatBox.box.put(toMemId, this);
+        log.info("Chat open Id: {} box: {}", toMemId, ChatBox.box);
 
     }
 
@@ -42,11 +43,19 @@ public class ChatEndPoint {
                             @PathParam("toMemId") String toMemId,
                             @PathParam("itemNo") long itemNo,
                             @PathParam("writerTp") int writerTp) {
-        log.info("{} : {}", itemChat.getMemId(), itemChat.getMsg());
+        log.info("{} : {}", toMemId, itemChat.getMsg());
 
         // 메시지 보내기
-        itemChat.setMemId(memId);
-        itemChat.setToMemId(toMemId);
+        if (Const.WRITER_TP_BUYER == writerTp) {
+            // 구매인 경우
+            itemChat.setMemId(memId);
+            itemChat.setToMemId(toMemId);
+        } else {
+            // 판매자인 경우
+            itemChat.setMemId(toMemId);
+            itemChat.setToMemId(memId);
+        }
+
         itemChat.setMsg(itemChat.getMsg());
         itemChat.setItemNo(itemNo);
         long nextChatNo = itemChatMapper.selectNextChatNo(itemChat);
@@ -60,8 +69,8 @@ public class ChatEndPoint {
                           @PathParam("toMemId") String toMemId,
                           @PathParam("itemNo") long itemNo,
                           @PathParam("writerTp") int writerTp) {
-        ChatBox.box.remove(memId);
-        log.info("chat close: {} box: {}", memId, ChatBox.box);
+        ChatBox.box.remove(toMemId);
+        log.info("chat close: {} box: {}", toMemId, ChatBox.box);
     }
 
     @OnError
@@ -76,10 +85,10 @@ public class ChatEndPoint {
         // DB에 내용을 저장(상대방이 온라인이던/오프라인이던 저장)
         itemChatMapper.insertItemChat(itemChat);
 
-        String toMemId = itemChat.getToMemId();
-        if (ChatBox.box.containsKey(toMemId)) {
+        String otherTarget = itemChat.getMemId();
+        if (ChatBox.box.containsKey(otherTarget)) {
             // 상대방이 온라인 상태인 경우
-            ChatEndPoint cep = ChatBox.box.get(toMemId);
+            ChatEndPoint cep = ChatBox.box.get(otherTarget);
             try {
                 // 브라우저로 메시지를 전달 (휘발성)
                 cep.session.getBasicRemote().sendObject(itemChat);

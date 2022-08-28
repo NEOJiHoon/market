@@ -6,7 +6,7 @@
 
     <insert id="insertItemChat" parameterType="ItemChat">
         INSERT INTO ITEM_CHAT (MEM_ID, ITEM_NO, TO_MEM_ID, CHAT_NO, MSG, WRITER_TP, CREATE_DT)
-        VALUES (#{memId}, #{itemNo}, #{toMemId}, #{chatNo}, #{msg}, #{writerTp}, NOW())
+        VALUES (#{memId}, #{itemNo}, #{toMemId}, #{chatNo}, #{msg}, #{writerTp}, now())
     </insert>
 
     <select id="selectItemChatList" resultType="ItemChat" parameterType="map">

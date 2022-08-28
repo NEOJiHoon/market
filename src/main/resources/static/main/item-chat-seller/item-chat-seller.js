@@ -7,7 +7,7 @@ $(document).ready(function(){
 // 로그인한 사람은 '나' 글을 보내는 사람
 var toMemId = sessionStorage.getItem("id");
 
-var uri = 'ws://localhost:8080/chat/';
+var uri = 'ws://' + window.location.host +'/chat/';
 var websocket;
 var chatInput; // 채팅을 입력한 인풋박스
 var chatList; // 채팅 내역 (대화 내역)
@@ -52,6 +52,7 @@ function connect() {
         websocket.onmessage = function (evt) {
             var itemChat = JSON.parse(evt.data);
             console.log(itemChat.memId + " : " + itemChat.msg);
+            chatList.append(makeHtmlMsg(itemChat.msg, moment(), itemChat.writerTp));
         };
     }
 }

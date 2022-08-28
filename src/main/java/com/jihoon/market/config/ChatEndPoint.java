@@ -5,6 +5,7 @@ import com.jihoon.market.mapper.ItemChatMapper;
 import com.jihoon.market.model.ItemChat;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -14,6 +15,7 @@ import java.io.IOException;
 
 @Slf4j
 @Component
+@Scope("prototype")
 @ServerEndpoint(
         value = "/chat/{toMemId}/{memId}/{itemNo}/{writerTp}",
         encoders = {ChatEncoder.class},
@@ -85,7 +87,14 @@ public class ChatEndPoint {
         // DB에 내용을 저장(상대방이 온라인이던/오프라인이던 저장)
         itemChatMapper.insertItemChat(itemChat);
 
-        String otherTarget = itemChat.getMemId();
+        String otherTarget;
+        if (Const.WRITER_TP_BUYER == itemChat.getWriterTp()) {
+            // 구매인 경우
+            otherTarget = itemChat.getMemId();
+        } else {
+            // 판매자인 경우
+            otherTarget = itemChat.getToMemId();
+        }
         if (ChatBox.box.containsKey(otherTarget)) {
             // 상대방이 온라인 상태인 경우
             ChatEndPoint cep = ChatBox.box.get(otherTarget);

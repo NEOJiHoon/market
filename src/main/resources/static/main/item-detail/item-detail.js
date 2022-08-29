@@ -64,3 +64,9 @@ var id = sessionStorage.getItem("id");
 if (id !== g_selected_mem_id) {
     $("#btn-del").remove();
 }
+
+// 로그인한 ID와 선택된 상품의 판매자 ID (g_selected_mem_id)가 동일한 경우
+// 이 경우는 판매자와 구매자가 같은 경우로 채팅 버튼을 없앤다.
+if (id === g_selected_mem_id) {
+    $("#btn-chat").remove();
+}

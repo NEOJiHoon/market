@@ -81,4 +81,11 @@ function sendMessage() {
     chatList.prepend(htmlMsg);
 }
 
+function keyDown() {
+    // 엔터키는 13임
+    if (event.keyCode === 13) {
+        sendMessage(); // 메시지를 전송 (전송 버튼 클릭시 수행되는 함수와 동임)
+    }
+}
+
 init();

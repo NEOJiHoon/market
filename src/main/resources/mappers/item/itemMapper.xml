@@ -7,10 +7,10 @@
     <insert id="insertItem" parameterType="Item">
         insert into ITEM
             (MEM_ID, ITEM_NO, TITLE, CONTENTS, PRICE, IMG_ONE, IMG_TWO, IMG_THREE,
-             CREATE_DT, SOLD_OUT_YN, SOLD_OUT_DT, DEL_YN, DEL_DT)
+             CREATE_DT, SOLD_OUT_YN, SOLD_OUT_DT, DEL_YN, DEL_DT, ITEM_TP)
         values
             (#{memId}, #{itemNo}, #{title}, #{contents}, #{price}, #{imgOne}, #{imgTwo}, #{imgThree},
-             #{createDt}, #{soldOutYn}, #{soldOutDt}, #{delYn}, #{delDt})
+             #{createDt}, #{soldOutYn}, #{soldOutDt}, #{delYn}, #{delDt}, #{itemTp})
     </insert>
 
     <update id="updateItem" parameterType="Item">

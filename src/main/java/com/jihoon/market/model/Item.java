@@ -25,4 +25,5 @@ public class Item {
     private String delYn;
     private LocalDateTime delDt;
     private String nicNm;
+    private String itemTp; // 상품분류 필드 추가
 }

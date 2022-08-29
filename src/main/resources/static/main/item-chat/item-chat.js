@@ -30,7 +30,7 @@ function init() {
             for (var i = 0; i < chats.length; i++) {
                 // 채팅 박스 스타일에서 flex-direction: column-reverse; 으로 설정하여 역순으로 보이게 스타일을 처리함
                 // 역순으로 보이게 하는 이유는 채팅 스크롤이 항상 하단으로 내려가 있게 하기 위해서임
-                // 따라서 채팅 내역을 취로 붙히는 append 를 사용하지 않고 앞으로 붙히는 prepend 로 변경 시킴
+                // 따라서 채팅 내역을 취로 붙이는 append 를 사용하지 않고 앞으로 붙이는 prepend 로 변경 시킴
                 chatList.prepend(makeHtmlMsg(chats[i].msg, chats[i].createDt, chats[i].writerTp));
             }
         }
@@ -57,7 +57,7 @@ function connect() {
         websocket.onmessage = function (evt) {
             var itemChat = JSON.parse(evt.data);
             console.log(itemChat.memId + " : " + itemChat.msg);
-            // 채팅 내역 역순 정렬을 위해 append 를 사용하지 않고 앞으로 붙히는 perpend 로 변경 시킴
+            // 채팅 내역 역순 정렬을 위해 append 를 사용하지 않고 앞으로 붙이는 perpend 로 변경 시킴
             chatList.prepend(makeHtmlMsg(itemChat.msg, moment(), itemChat.writerTp));
         };
     }
@@ -77,7 +77,7 @@ function sendMessage() {
 
     var htmlMsg = makeHtmlMsg(msg, moment(), 1); //글쓴이가 구매자이므로 1번
 
-    // 채팅 내역 역순 정렬을 위해 append 를 사용하지 않고 앞으로 붙히는 prepend 로 변경 시킴
+    // 채팅 내역 역순 정렬을 위해 append 를 사용하지 않고 앞으로 붙이는 prepend 로 변경 시킴
     chatList.prepend(htmlMsg);
 }
 

@@ -21,7 +21,8 @@ function createItem() {
     var params = {
         title: $('#subject').val(),
         price: $('#price').val(),
-        contents: $('#item-content').val()
+        contents: $('#item-content').val(),
+        itemTp: $('#item-type').val() // 상품분류가 함께 전송되도록 추가
     }
     const imageInput = $('#image')[0];
     console.log('imageInput', imageInput.files);

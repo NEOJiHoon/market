@@ -4,6 +4,8 @@ function goDetail(memId, itemNo) {
 }
 
 function getItemList(searchType) {
+    // 비동기 방식으로 서버에게 상품목록을 요청
+    // searchType: 0:전체, 1:판매중, 2:판매완료
     $.ajax({
         type:"GET",
         url:"/item?type=" + searchType,

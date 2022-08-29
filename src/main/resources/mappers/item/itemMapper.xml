@@ -35,8 +35,13 @@
         WHERE MEM_ID=#{memId} AND ITEM_NO = #{itemNo}
     </update>
 
-    <select id="selectItemList" resultType="Item">
+    <select id="selectItemList" resultType="Item" parameterType="int">
         select * from ITEM where (DEL_YN = 'N' OR DEL_YN is null)
+        /* (type: 0:전체, 1:판매중. 2:판매완료) 에 따른 조건 추가 */
+        <choose>
+            <when test="type ==1">AND SOLD_OUT_YN = 'N'</when>
+            <when test="type ==2">AND SOLD_OUT_YN = 'Y'</when>
+        </choose>
     </select>
 
     <select id="selectNextItemNo" resultType="long" parameterType="String">

@@ -74,9 +74,12 @@ public class ItemController {
         return itemMapper.deleteItem(item);
     }
 
+    // 브라우저에서 아래와 같이 요청
+    // type:"GET",
+    // url:"/item?type=" + searchType, (searchType: 0:전체, 1:판매중. 2:판매완료)
     @GetMapping()
-    public List<Item> getItemList() {
-        List<Item> itemList = itemMapper.selectItemList();
+    public List<Item> getItemList(@RequestParam(required = false, defaultValue = "0") int type) {
+        List<Item> itemList = itemMapper.selectItemList(type);
         log.info(":: 아이템 목록 :: {}", itemList);
         return itemList;
     }

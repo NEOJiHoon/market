@@ -15,7 +15,8 @@ public interface ItemMapper {
 
     int deleteItem(Item item);
 
-    List<Item> selectItemList();
+    // (type: 0:전체, 1:판매중, 2:판매완료)
+    List<Item> selectItemList(int type);
 
     Long selectNextItemNo(String id);
 

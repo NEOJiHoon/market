@@ -68,8 +68,17 @@ function getChatAlertList() {
         url : "/item/chat/alert?memId=" + g_login_id,
         success : function (list){
             console.log('chat alert list: ', list);
-            $("#chat-alert-data-list").html("");
+            if (list.length === 0) {
+                // 채팅 알림 내역이 없는 경우
+                $("#chat-alert-counter").hide();
+            } else {
+                // 채팅 알림 내역이 있는 경우 -> 알림 갯수를 표시
+                $("#chat-alert-counter").html(list.length);
+            }
+            $("#chat-alert-data-list").html(""); // 채팅알림내역을 초기화(전부 지우고)
             for (var i in list) {
+                // 채팅알림내역을 list의 갯수 만큼 append 붙힌다.
+                // 붙힐 때 makeChatAlertHtml 함수를 적용해서 스타일이 적용된 html로 append 붙힌다.
                 $("#chat-alert-data-list").append(makeChatAlertHtml(list[i]));
             }
         }

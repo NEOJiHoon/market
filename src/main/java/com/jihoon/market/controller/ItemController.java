@@ -77,9 +77,15 @@ public class ItemController {
     // 브라우저에서 아래와 같이 요청
     // type:"GET",
     // url:"/item?type=" + searchType, (searchType: 0:전체, 1:판매중. 2:판매완료)
+    // 두번째 인자로 + "&itemTp=" + g_item_type (itemTp: 1:의류, 2:가전, 3:도서, 4:식품, 5:주방, 6:생활잡화)
     @GetMapping()
-    public List<Item> getItemList(@RequestParam(required = false, defaultValue = "0") int type) {
-        List<Item> itemList = itemMapper.selectItemList(type);
+    public List<Item> getItemList(@RequestParam(required = false, defaultValue = "0") int type,
+                                  @RequestParam(required = false, defaultValue = "0") int itemTp) {
+        // itemMapper 매퍼에 2개의 인자(파라미터 type, itemTp)를 전달하기 위해서 map(자료형)에 담아서 전달
+        Map<String, Object> map = new HashMap<>();
+        map.put("type", type);
+        map.put("itemTp", itemTp);
+        List<Item> itemList = itemMapper.selectItemList(map);
         log.info(":: 아이템 목록 :: {}", itemList);
         return itemList;
     }

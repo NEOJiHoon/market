@@ -18,6 +18,17 @@ function  myRendering() {
     $("#main").load("/main/my/my.html");
 }
 
+// 상품분류 조회를 위한 글로벌변수 선언
+// 기본값은 0(전체)으로 (1:의류, 2:가전, 3:도서, 4:식품, 5:주방, 6:생활잡화)
+var g_item_type = 0;
+
+function goItemTypeList(itemTp) {
+    console.log("goItemTypeList", itemTp);
+    g_item_type = itemTp; // 상품분류를 저장하기 위한 글로벌 변수에 파라미터(인자)로 전달된 값을 저잗
+    // 그러고나서 html id가 main인 엘리먼트를 item-list.html로 렌더링시킨다.
+    $("#main").load("/main/item-list/item-list.html");
+}
+
 // 글로벌 변수 선언
 var g_chat_alert_item_no; // 채팅알림의 상품번호
 var g_chat_alert_buyer_id; // 채팅알림의 구매자ID

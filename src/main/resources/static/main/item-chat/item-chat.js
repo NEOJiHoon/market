@@ -13,8 +13,26 @@ var chatInput; // 채팅을 입력한 인풋박스
 var chatList; // 채팅 내역 (대화 내역)
 var msgObj = {}; // 채팅정보 (보내는이, 받는이, 상품번호, 메시지 시간등)
 
+// 판매자의 정보를 가져온다. (필요한 정보로 판매자 닉네임, 아이디, 이미지)
+// 가져온 판매자의 정보로 채팅의 판매자 정보 html을 변경한다.
+function changeHtmlSellerInfo() {
+    $.ajax({
+       type: "GET",
+       url: "/member?memId=" + g_selected_mem_id,
+       success: function (seller) {
+           // html id가 seller_name 인 엘리먼트를 찾아서 내용을 변경
+           $("#seller_name").html(seller.nicNm + '(' + seller.memId + ')');
+
+           // 판매자의 이미지가 등록된 경우 등록된 이미지로 교체
+           if (seller.memImg) {
+               $("#seller-chat-img").attr('src', 'data:image/jpg;base64,' + awllwe.mwmImg);
+           }
+       }
+    });
+}
+
 function init() {
-    // 판매자 이름 채팅창 화면에 표시
+    // 채팅창 html 변경 (판매자 이미지, 판매자 ID, 판매자 닉네임 등)
     $("#seller_name").html(g_selected_mem_id);
 
     chatList = $("#chat-list");

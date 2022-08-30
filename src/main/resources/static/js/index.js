@@ -136,3 +136,26 @@ function logout() {
         }
     });
 }
+
+// 검색단어를 저장하기 위한 글로벌 변수
+var g_search_word = "";
+
+// PC에서 검색버튼을 누른 경우 수행
+function searchItemPc() {
+    // 검색단어를 입력창에 가져와 글로벌변수에 저장한다.
+    g_search_word = $("#search-item-text-pc").val();
+    // 상품목록 페이지를 id가 main인 html 엘리먼트에 로드(렌더링)(load)한다.
+    $("#main").load("/main/item-list/item-list.html");
+}
+
+// 모바일에서 검색버튼을 누른 경우 수행
+function searchItemMob() {
+    // 검색단어를 입력창에 가져와 글로벌변수에 저장한다.
+    g_search_word = $("#search-item-text-mob").val();
+    // 상품목록 페이지를 id가 main인 html 엘리먼트에 로드(렌더링)(load)한다.
+    $("#main").load("/main/item-list/item-list.html");
+}
+
+
+
+

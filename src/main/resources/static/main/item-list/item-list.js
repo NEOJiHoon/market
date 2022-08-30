@@ -7,9 +7,10 @@ function getItemList(searchType) {
     // 비동기 방식으로 서버에게 상품목록을 요청
     // searchType: 0:전체, 1:판매중, 2:판매완료
     // g_item_type: 1:의류, 2:가전, 3:도서, 4:식품, 5:주방, 6:생활잡화
+    // g_search_word: 제목으로 검색하는 경우 사용되는 글로벌 변수
     $.ajax({
         type:"GET",
-        url:"/item?type=" + searchType +"&itemTp=" + g_item_type,
+        url:"/item?type=" + searchType +"&itemTp=" + g_item_type + "&searchWord=" + g_search_word,
         success: function(list){
             console.log("list: ", list);
 

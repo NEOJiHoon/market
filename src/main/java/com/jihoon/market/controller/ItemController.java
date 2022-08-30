@@ -78,13 +78,17 @@ public class ItemController {
     // type:"GET",
     // url:"/item?type=" + searchType, (searchType: 0:전체, 1:판매중. 2:판매완료)
     // 두번째 인자로 + "&itemTp=" + g_item_type (itemTp: 1:의류, 2:가전, 3:도서, 4:식품, 5:주방, 6:생활잡화)
+    // 세번째 인자로 + "&searchWord=" + g_search_word (검색어로 제목을 검색)
     @GetMapping()
     public List<Item> getItemList(@RequestParam(required = false, defaultValue = "0") int type,
-                                  @RequestParam(required = false, defaultValue = "0") int itemTp) {
+                                  @RequestParam(required = false, defaultValue = "0") int itemTp,
+                                  @RequestParam(required = false, defaultValue = "") String searchWord) {
         // itemMapper 매퍼에 2개의 인자(파라미터 type, itemTp)를 전달하기 위해서 map(자료형)에 담아서 전달
+        // 제목을 검색할 검색어에 대한 인자 1개를 추가로 맵(map)에 넣는다.
         Map<String, Object> map = new HashMap<>();
         map.put("type", type);
         map.put("itemTp", itemTp);
+        map.put("searchWord", searchWord);
         List<Item> itemList = itemMapper.selectItemList(map);
         log.info(":: 아이템 목록 :: {}", itemList);
         return itemList;

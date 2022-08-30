@@ -46,6 +46,10 @@
         <choose>
             <when test="itemTp > 0">AND ITEM_TP = #{itemTp}</when>
         </choose>
+        /* 검색어가 있는 경우 검색조건을 추가 */
+        <if test="searchWord != null and searchWord != ''">
+            AND TITLE LIKE CONCAT('%', #{searchWord}, '%')
+        </if>
     </select>
 
     <select id="selectNextItemNo" resultType="long" parameterType="String">

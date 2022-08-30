@@ -14,8 +14,14 @@ var chatList; // 채팅 내역 (대화 내역)
 var msgObj = {}; // 채팅정보 (보내는이, 받는이, 상품번호, 메시지 시간등)
 
 function init() {
-    // 판매자 이름 채팅창 화면에 표시
-    $("#seller_name").html(g_selected_mem_id);
+    $("#buyer_title").html(g_chat_alert_buyer_title); // 구매자 제목(구매하는 상품제목) html 화면 수정
+    $("#buyer_id").html(g_chat_alert_buyer_nic_nm + '(' + g_chat_alert_buyer_id + ')'); // 구매자 닉네임(ID) html 화면 수정
+
+    // 구매자 이미지가 있는 경우 그리고 구매자 이미지가 'null'(널문자)가 아닌 경우 (이미지 없는 경우 'null'문자로 들어오는 경우 대비)
+    if (g_chat_alert_buyer_img && g_chat_alert_buyer_img !== 'null') {
+        // 구매자 이미지가 있으므로 html 의 이미지에 해당하는 부분을 구매자 이미지로 교체
+        $("#buyer-chat-img").attr('src', "data:image/jpg;base64," + g_chat_alert_buyer_img);
+    }
 
     chatList = $("#chat-list");
     chatInput = $("#chat-input");

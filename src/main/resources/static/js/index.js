@@ -32,11 +32,17 @@ function goItemTypeList(itemTp) {
 // 글로벌 변수 선언
 var g_chat_alert_item_no; // 채팅알림의 상품번호
 var g_chat_alert_buyer_id; // 채팅알림의 구매자ID
+var g_chat_alert_buyer_nic_nm; // 채팅알림의 구매자닉네임
+var g_chat_alert_buyer_img; // 채팅알림의 구매자 이미지
+var g_chat_alert_buyer_title; //채팅알림의 구매자 제목
 // 채팅알림의 알림내역을 클릭했을 경우 호출되는 함수
-function goChatAlert(itemNo, buyerId) {
-    console.log('goChatAlert', itemNo, buyerId);
+function goChatAlert(itemNo, buyerId, buyerId, buyerNicNm, buyerImg, buyerTitle) {
+    console.log('goChatAlert', itemNo, buyerId, buyerId, buyerNicNm, buyerImg, buyerTitle);
     g_chat_alert_item_no = itemNo;
     g_chat_alert_buyer_id = buyerId;
+    g_chat_alert_buyer_nic_nm = buyerNicNm;
+    g_chat_alert_buyer_img = buyerImg;
+    g_chat_alert_buyer_title = buyerTitle;
     $("#main").load("/main/item-chat-seller/item-chat-seller.html");
 }
 
@@ -104,7 +110,8 @@ function makeChatAlertHtml(chatAlert) {
         imgHtml = "<img class=\"rounded-circle\" src=\"img/undraw_profile.svg\">";
     }
     return "<a class=\"dropdown-item d-flex align-items-center\" href=\"#\" " +
-        "onclick=\"goChatAlert(" + chatAlert.itemNo + ", '" + chatAlert.toMemId + "')\">" +
+        "onclick=\"goChatAlert(" + chatAlert.itemNo + ", '" + chatAlert.toMemId + "', '"
+                        + chatAlert.nicNm + "', '" + chatAlert.memImg + "', '" + chatAlert.title + "')\">" +
         "    <div class=\"dropdown-list-image mr-3\">" +
         imgHtml +
         "    </div>" +

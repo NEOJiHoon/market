@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"imgOne", "imgTwo", "imgThree"}) // 이미지 바이트가 서버로그에 찍히지 않도록 문자열 출력시 제외시킴
 public class Item {
     private String memId;
     private Long itemNo;

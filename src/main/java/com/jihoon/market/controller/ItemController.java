@@ -114,7 +114,7 @@ public class ItemController {
         map.put("itemTp", itemTp);
         map.put("searchWord", searchWord);
         List<Item> itemList = itemMapper.selectItemList(map);
-        log.info(":: 아이템 목록 :: {}", itemList);
+        log.info(":: 아이템 목록 갯수 :: {}", itemList.size()); // 갯수만 서버로그에 출력
         return itemList;
     }
 

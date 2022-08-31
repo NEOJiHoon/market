@@ -34,7 +34,7 @@ public class ItemChatController {
         map.put("itemNo", itemNo);
         map.put("toMemId", toMemId);
         List<ItemChat> itemChatList = itemChatMapper.selectItemChatList(map);
-        log.info("아이템 채팅 목록: {}", itemChatList);
+        log.info("아이템 채팅 목록 갯수: {}", itemChatList.size()); // 갯수만 서버로그에 출력
         return itemChatList;
     }
 
@@ -42,7 +42,7 @@ public class ItemChatController {
     public List<ChatAlert> getChatAlertList(@RequestParam String memId) {
         log.info("chat alert list memId: {}",memId);
         List<ChatAlert> chatAlertList = itemChatMapper.selectChatAlertList(memId);
-        log.info("chat alert list: {}", chatAlertList);
+        log.info("chat alert list size: {}", chatAlertList.size()); // 갯수만 서버로그에 출력
         return chatAlertList;
     }
 

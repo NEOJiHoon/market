@@ -38,10 +38,10 @@ function makeItemListHtml(item) {
     } else {
         imgStr = "src=\"/img/undraw_rocket.svg\">";
     }
-    // 상품이 팜내 완료인 경우
+    // 상품이 판매 완료인 경우
     var soldOutImgStr = "";
     if (item.soldOutYn === 'Y') {
-        soldOutImgStr = "<img width='100' height='70' style='position;' src='/img/soldout.png'>";
+        soldOutImgStr = "<img width='100' height='70' style='position: absolute;' src='/img/soldout.png'>";
     }
 
     return "<div class=\"col-xl-3 col-md-6 mb-4\">\n" +

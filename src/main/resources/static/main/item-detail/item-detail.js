@@ -21,6 +21,8 @@ function getItem() {
                 if (res.soldOutYn === 'Y') {
                     // html의 id가 btn-sold-out 인 요소(엘리먼트)를 찾아 제거한다.
                     $("#btn-sold-out").detach();
+                    // 판매완료인 경우 솔드아웃이미지로 src를 변경한다.
+                    $("#img-detail-soldout").attr('src', '/img/soldout.png');
                 }
             } else {
                 location.href = "/";

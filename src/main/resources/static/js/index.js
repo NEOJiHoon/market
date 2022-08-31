@@ -14,7 +14,7 @@ function chatRendering() {
     $("#main").load("/main/item-chat/item-chat.html");
 }
 
-function  myRendering() {
+function myRendering() {
     $("#main").load("/main/my/my.html");
 }
 

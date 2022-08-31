@@ -38,10 +38,17 @@ function makeItemListHtml(item) {
     } else {
         imgStr = "src=\"/img/undraw_rocket.svg\">";
     }
+    // 상품이 팜내 완료인 경우
+    var soldOutImgStr = "";
+    if (item.soldOutYn === 'Y') {
+        soldOutImgStr = "<img width='100' height='70' style='position;' src='/img/soldout.png'>";
+    }
 
     return "<div class=\"col-xl-3 col-md-6 mb-4\">\n" +
         "        <div class=\"card border-left-primary shadow h-100 py-2\">\n" +
-        "            <div class=\"card-body\">\n" +
+        "            <div class=\"card-body\" style='cursor:pointer;'" +
+        "                       onclick='goItemDetail(\"" + item.memId + "\"," + item.itemNo + ")' " +
+        "           >\n" +
         "                <div class=\"row no-gutters align-items-center\">\n" +
         "                    <div class=\"col mr-2\">\n" +
         "                        <div class=\"text-xs font-weight-bold text-primary text-uppercase mb-1\">\n" +
@@ -49,6 +56,7 @@ function makeItemListHtml(item) {
         "                        <div class=\"h5 mb-0 font-weight-bold text-gray-800\">" + item.price.toLocaleString('ko-KR') + " 원</div>\n" +
         "                    </div>\n" +
         "                    <div class=\"col-auto\">\n" +
+        soldOutImgStr +
         "                       <img width='150' height='150'" +
         "                           onclick='goItemDetail(\"" + item.memId + "\"," + item.itemNo + ")' " +
 

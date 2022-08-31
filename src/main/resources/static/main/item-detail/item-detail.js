@@ -7,7 +7,7 @@ function getItem() {
             if (res) {
                 $("#title").html("").append(res.title);
                 $("#memId").html("판매자: ").append(res.nicNm + " (" + res.memId + ")");
-                $("#price").html("가격: ").append(res.price + '원');
+                $("#price").html("가격: ").append(res.price.toLocaleString('ko-KR') + '원');
                 $("#contents").html("").append(res.contents);
 
                 if (res.imgOne) {

@@ -46,7 +46,7 @@ function makeItemListHtml(item) {
         "                    <div class=\"col mr-2\">\n" +
         "                        <div class=\"text-xs font-weight-bold text-primary text-uppercase mb-1\">\n" +
         "                            " + item.title + "</div>\n" +
-        "                        <div class=\"h5 mb-0 font-weight-bold text-gray-800\">" + item.price + " 원</div>\n" +
+        "                        <div class=\"h5 mb-0 font-weight-bold text-gray-800\">" + item.price.toLocaleString('ko-KR') + " 원</div>\n" +
         "                    </div>\n" +
         "                    <div class=\"col-auto\">\n" +
         "                       <img width='150' height='150'" +

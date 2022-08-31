@@ -74,6 +74,30 @@ public class ItemController {
         return itemMapper.deleteItem(item);
     }
 
+    @PutMapping("/soldout")
+    public int soldOutItem(@RequestParam String memId, @RequestParam Long itemNo,
+                           HttpServletRequest request) {
+        log.info("::키:: 멤버ID:{}, 아이템번호:{}", memId, itemNo);
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("id");
+        if (!request.isRequestedSessionIdValid() || id == null || id.trim().equals("")) {
+            // 로그인하지 않은 상태로 예외 처리
+            return -1;
+        }
+        if (!id.equals(memId)) {
+            // 다른사람의 글을 지울 수 없습니다.
+            return -2;
+        }
+        // 위 검증로직을 다 통과한 이후 아이템점보를 DB로 부터 가져온다.
+        Map<String, Object> map = new HashMap<>(); // 두개의 파라미터를 넘기기 위해 맵(map)을 사용
+        map.put("memId", memId);
+        map.put("itemNo", itemNo);
+        Item item = itemMapper.selectItem(map); // DB로 부터 item 객체를 가져옴
+        item.setSoldOutYn("Y"); // item 객체의 soldout 여부를 Y로 수정
+        item.setSoldOutDt(LocalDateTime.now()); // item 객체의 soldout 시간을 현재시간으로 수정
+        return itemMapper.updateItem(item); // 수정된 item 객체를 DB에 반영(업데이트)한다. 그리고 그 결과값을 리턴한다.
+    }
+
     // 브라우저에서 아래와 같이 요청
     // type:"GET",
     // url:"/item?type=" + searchType, (searchType: 0:전체, 1:판매중. 2:판매완료)

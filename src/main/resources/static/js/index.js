@@ -156,6 +156,12 @@ function searchItemMob() {
     $("#main").load("/main/item-list/item-list.html");
 }
 
+function searchKeyDownPc() {
+    // 엔터키는 13dla
+    if (event.keyCode === 13) {
+        searchItemPc(); // PC에서 검색버튼 눌렀을 때 호출되는 함수 호출
+    }
+}
 
 
 

@@ -17,6 +17,23 @@ function getItem() {
                     $("#img_l_1").attr('src', "/img/undraw_rocket.svg");
                     $("#img_s_1").attr('src', "/img/undraw_rocket.svg");
                 }
+                // 두번째 이미지 처리
+                if (res.imgTwo) {
+                    $("#img_l_2").attr('src', "data:image/jpg;base64" + res.imgTwo);
+                    $("#img_s_2").attr('src', "data:image/jpg;base64" + res.imgTwo);
+                } else {
+                    $("#img_l_2").attr('src', "/img/undraw_rocket.svg");
+                    $("#img_s_2").attr('src', "/img/undraw_rocket.svg");
+                }
+                // 세번째 이미지 처리
+                if (res.imgThree) {
+                    $("#img_l_3").attr('src', "data:image/jpg;base64," + res.imgThree);
+                    $("#img_s_3").attr('src', "data:image/jpg;base64," + res.imgThree);
+                } else {
+                    $("#img_l_3").attr('src', "/img/undraw_rocket.svg");
+                    $("#img_s_3").attr('src', "/img/undraw_rocket.svg");
+                }
+
                 // 아이템이 판매완료(soldOut)인지 확인해서 '판매완료'버튼을 제거한다.
                 if (res.soldOutYn === 'Y') {
                     // html의 id가 btn-sold-out 인 요소(엘리먼트)를 찾아 제거한다.

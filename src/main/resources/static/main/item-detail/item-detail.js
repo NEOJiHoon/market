@@ -19,8 +19,8 @@ function getItem() {
                 }
                 // 두번째 이미지 처리
                 if (res.imgTwo) {
-                    $("#img_l_2").attr('src', "data:image/jpg;base64" + res.imgTwo);
-                    $("#img_s_2").attr('src', "data:image/jpg;base64" + res.imgTwo);
+                    $("#img_l_2").attr('src', "data:image/jpg;base64," + res.imgTwo);
+                    $("#img_s_2").attr('src', "data:image/jpg;base64," + res.imgTwo);
                 } else {
                     $("#img_l_2").attr('src', "/img/undraw_rocket.svg");
                     $("#img_s_2").attr('src', "/img/undraw_rocket.svg");

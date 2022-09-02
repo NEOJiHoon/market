@@ -34,6 +34,14 @@ function createItem() {
     formData.append("image", imageInput.files[0]);
     formData.append("item", JSON.stringify(params));
 
+    // 추가 이미지가 있는 경우 폼에 추가한다.
+    if ($('#image-two')[0].files.length > 0) {
+        formData.append("imageTwo", $('#image-two')[0].files[0]);
+    }
+    if ($('#image-three')[0].files.length > 0) {
+        formData.append("imageThree", $('#image-three')[0].files[0]);
+    }
+
     $.ajax({
         type:"POST",
         url: "/item",

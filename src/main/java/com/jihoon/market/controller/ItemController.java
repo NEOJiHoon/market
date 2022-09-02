@@ -27,6 +27,8 @@ public class ItemController {
     @PostMapping()
     public int createItem(@RequestParam("image") MultipartFile file,
                           @RequestParam("item") String itemString,
+                          @RequestParam(value = "imageTwo", required = false) MultipartFile fileTwo,
+                          @RequestParam(value = "imageThree", required = false) MultipartFile fileThree,
                           HttpServletRequest request) throws IOException {
         log.info("create item: {}", itemString);
         HttpSession session = request.getSession();
@@ -41,6 +43,13 @@ public class ItemController {
         Long nextItemNo = itemMapper.selectNextItemNo(id);
         item.setItemNo(nextItemNo);
         item.setImgOne(file.getBytes());
+        // 추가 이미지가 있는 경우 item 에 이미지를 셋한다.
+        if (fileTwo != null) {
+            item.setImgTwo(fileTwo.getBytes());
+        }
+        if (fileThree != null) {
+            item.setImgThree(fileThree.getBytes());
+        }
         item.setCreateDt(LocalDateTime.now());
         item.setSoldOutYn("N");
         item.setDelYn("N");

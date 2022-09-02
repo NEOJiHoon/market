@@ -77,14 +77,11 @@ $("#image").change(function (e){
         };
         // 리더로 선택된 이미지를 읽는다. (이미지를 읽음으로 인해 위의 onload 이벤트가 발생함)
         reader.readAsDataURL(e.target.files[0]);
-    }
-    /*
-    else {
+    } else {
         // 선택된 이미지가 없는 경우 (기본이미지(로켓)로 복구)
         $("#image-one-display").attr('src', '/img/undraw_rocket.svg');
     }
 
-     */
 });
 
 // 두번째 이미지에 변경(이벤트)이 발생한 경우에 수행될 함수를 등록한다.
@@ -99,14 +96,11 @@ $("#image-two").change(function (e){
         };
         // 리더로 선택된 이미지를 읽는다. (이미지를 읽음으로 인해 위의 onload 이벤트가 발생함)
         reader.readAsDataURL(e.target.files[0]);
-    }
-    /*
-    else {
+    } else {
         // 선택된 이미지가 없는 경우 (기본이미지(로켓)로 복구)
         $("#image-two-display").attr('src', '/img/undraw_rocket.svg');
     }
 
-     */
 });
 
 // 세번째 이미지에 변경(이벤트)이 발생한 경우에 수행됨 함수를 등록한다.
@@ -121,14 +115,10 @@ $("#image-three").change(function (e) {
        };
        // 리더로 선택된 이미지를 읽는다. (이미지를 읽음으로 인해 위의 onload 이벤트가 발생함)
        reader.readAsDataURL(e.target.files[0]);
-   }
-   /*
-   else {
+   } else {
        // 선택된 이미지가 없는 경우 (기본이미지(로켓)로 복구)
        $("#image-three-display").attr('src', '/img/undraw_rocket.svg');
    }
-
-    */
 });
 
 

@@ -35,9 +35,10 @@ CREATE TABLE ITEM (
                       SOLD_OUT_YN CHAR(1)         NULL     DEFAULT 'N', -- 판매완료여부
                       SOLD_OUT_DT DATETIME        NULL,     -- 판매완료일시
                       DEL_YN      CHAR(1)         NULL     DEFAULT 'N', -- 삭제여부
-                      DEL_DT      DATETIME        NULL      -- 삭제일시
+                      DEL_DT      DATETIME        NULL,      -- 삭제일시
+                      ITEM_TP     INTEGER(2)      NULL
 );
-
+commit ;
 -- 상품
 ALTER TABLE ITEM
     ADD CONSTRAINT PK_ITEM -- 상품 기본키

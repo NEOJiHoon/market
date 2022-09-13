@@ -1,7 +1,7 @@
 $.ajax({
     type:"GET",
     url:"/member?memId=" + g_login_id,
-    success: function (member){
+    success: function (member){ // member 는 응답데이터 (변수명은 자유롭게 지을 수 있음 member 로 지은 것은 변수명에 의미를 부여하기 위함
         console.log("member: ", member);
         $("#memId").val(member.memId);
         $("#nicNm").val(member.nicNm);
@@ -9,8 +9,11 @@ $.ajax({
         $("#memNm").val(member.memNm);
 
         if (member.memImg) {
-            $("#login-img").attr("src", "data:image/jpg;base64," + member.memImg);
-            $("#my-img").attr("src", "data:image/jpg;base64," + member.memImg);
+            // 성공 응답으로 받은 변수 member 에 memImg 의 값이 있는 경우
+            $("#login-img").attr("src", "data:image/jpg;base64," + member.memImg); // 오른쪽 상단 작은 이미지 변경
+            $("#my-img").attr("src", "data:image/jpg;base64," + member.memImg); // 프로필 이미지 변경
+            // 추가적으로 페이지 이동간에도 로그인 이미지를 유지하기 위해 세션스토리지에 해당 이미지를 저장
+            sessionStorage.setItem("memImg", member.memImg); // 세션스토리지에 다음 정보로 저장 {"memImg", "이미지 데이터..."}
         }
     }
 });
